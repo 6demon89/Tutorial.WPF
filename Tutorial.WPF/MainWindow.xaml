@@ -1,0 +1,93 @@
+﻿<Window x:Class="Tutorial.WPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:bit="clr-namespace:Binance.Net.Objects.Spot.MarketStream;assembly=Binance.Net"
+        mc:Ignorable="d"
+        Background="{StaticResource MainBackgroundColor}"
+        WindowState="Normal"
+        WindowStyle="None"
+        ResizeMode="CanResize"
+        Title="MainWindow">
+    <WindowChrome.WindowChrome>
+        <!--Caption height set to 0 to avoid hitbox conflics-->
+        <WindowChrome 
+            CaptionHeight="0"
+            ResizeBorderThickness="1" />
+    </WindowChrome.WindowChrome>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20*" MinWidth="210"/>
+            <ColumnDefinition Width="70*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Row="0" 
+              Margin="0 0 0 0"
+              Background="{StaticResource NavigationBarColor}"
+              Grid.ColumnSpan="3" 
+              MouseLeftButtonUp="Grid_MouseLeftButtonUp">
+            <DockPanel x:Name="NavigationBar"                        
+                       Background="Transparent"
+                       Margin="0 5 4 0" 
+                       LastChildFill="True"                           
+                       MouseDown="NavigationBar_MouseDown_1">
+                <StackPanel DockPanel.Dock="Right"                                    
+                                Background="Transparent"
+                                Orientation="Horizontal">
+                    <Button 
+                        Click="Button_Click_2"
+                        Foreground="White"
+                        Style="{StaticResource WindowButtonStyleIconMinimize}">
+                    </Button>
+                    <Button 
+                        x:Name="ChangeWindowsSizeBtn"
+                        Click="Button_Click"
+                        Foreground="White"
+                        Style="{StaticResource WindowButtonStyleIconMaximize}"/>
+                    <Button 
+                        Foreground="White"
+                        Style="{StaticResource WindowButtonStyleIconClose}"/>
+                </StackPanel>
+                <Border HorizontalAlignment="Stretch" DockPanel.Dock="Left"/>
+                <!--<View:NavigationView BorderThickness="0" DockPanel.Dock="Left" />-->
+            </DockPanel>
+        </Grid>
+
+        <StackPanel Grid.Row="1" x:Name="LeftControlPanel" HorizontalAlignment="Stretch">
+            <TextBlock Style="{StaticResource  DefaultHeaderTextBlockStyle}" Text="Enter searched Crypto Value"/>
+            <TextBox Style="{DynamicResource TextBoxStyle1}"
+                     x:Name="ValueToTrack"
+                     Text="{Binding NewCryptoName}"/>
+            <Button Style="{StaticResource DefaultButtonStyle}"
+                    Content="Track Selected"/>
+        </StackPanel>
+        <ListView
+            Grid.Row="1"
+            ItemsSource="{Binding Symbols}"
+            HorizontalContentAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            Grid.Column="1">
+            <ListView.ItemTemplate>
+                <DataTemplate DataType="{x:Type bit:BinanceStreamBookPrice}">
+                    <UniformGrid Rows="1">
+                        <TextBlock Text="{Binding Symbol}"/>
+                        <TextBlock Text="{Binding UpdateId}"/>
+                        <TextBlock Text="{Binding BestBidPrice}"/>
+                        <TextBlock Text="{Binding BestBidQuantity}"/>
+                        <TextBlock Text="{Binding BestAskPrice}"/>
+                        <TextBlock Text="{Binding BestAskQuantity}"/>
+                    </UniformGrid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel VirtualizingPanel.IsVirtualizing="True"/>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+        </ListView>
+    </Grid>
+</Window>
