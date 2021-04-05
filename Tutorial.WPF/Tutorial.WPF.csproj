@@ -8,11 +8,12 @@
 
   <ItemGroup>
     <PackageReference Include="Binance.Net" Version="6.12.0" />
+    <PackageReference Include="Blend.Interctivity.WPF.v4.0" Version="1.0.3" />
+    <PackageReference Include="System.Windows.Interactivity.WPF" Version="2.0.20525" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Model\" />
-    <Folder Include="Converters\" />
     <Folder Include="Service\" />
   </ItemGroup>
 

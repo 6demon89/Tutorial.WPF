@@ -1,0 +1,34 @@
+﻿<Window x:Class="Tutorial.WPF.View.UserConfermationDialogResult"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner"
+        Title="UserConfermationDialogResult"
+        Height="250" Width="800">
+    <WindowChrome.WindowChrome>
+        <!--Caption height set to 0 to avoid hitbox conflics-->
+        <WindowChrome 
+            CaptionHeight="0"
+            ResizeBorderThickness="1" />
+    </WindowChrome.WindowChrome>
+    <Grid Background="{StaticResource ApplicationBackgroundColor}">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.ColumnSpan="2" 
+                   VerticalAlignment="Center"
+                   FontSize="22"
+                   x:Name="QuestionTextBlock" Style="{StaticResource DefaultTextBlockStyle}"/>
+        <Button Grid.Row="1" x:Name="Confim" Click="Confim_Click" Content="Yesh" Style="{StaticResource DefaultButtonStyle}"/>
+        <Button Grid.Row="1" Grid.Column="1" Click="Decline_Click" x:Name="Decline" Content="No" Style="{StaticResource DefaultButtonStyle}"/>
+    </Grid>
+</Window>

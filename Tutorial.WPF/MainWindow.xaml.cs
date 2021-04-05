@@ -21,7 +21,14 @@ namespace Tutorial.WPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        Timer timer = new Timer(450);
+        /// <summary>
+        /// Track time for double click event
+        /// </summary>
+        readonly Timer timer = new Timer(450);
+
+        /// <summary>
+        /// Check if the user is double clicking the chrome
+        /// </summary>
         bool FirstClickChrome = false;
 
         public MainWindow()

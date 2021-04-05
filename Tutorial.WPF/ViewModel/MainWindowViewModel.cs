@@ -1,6 +1,7 @@
 ﻿using Binance.Net;
 using Binance.Net.Objects.Spot;
 using Binance.Net.Objects.Spot.MarketStream;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -23,7 +24,6 @@ namespace Tutorial.WPF.ViewModel
         public MainWindowViewModel()
         {
             AddCryptoCommand = new RelayCommand(AddNewCrypto);
-
         }
 
         private void s(BinanceStreamBookPrice data)

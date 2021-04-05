@@ -9,9 +9,10 @@ namespace Tutorial.WPF.ViewModel
      * Todays Goals:
      * - Explain windows chrome
      * - Explain Triggers and StoryBoards
-     * - Add Blend Interactive
      * - Custom Command, based on the Command Pattern
+     * - Add Blend Interactive *Install-Package System.Windows.Interactivity.WPF
      * - Custom Dialog Result before executing command
+     * 
      * - Maybe : Add new Views and implement Navigation
      */
     public class BaseViewModel : INotifyPropertyChanged
