@@ -1,13 +1,19 @@
 ﻿using Binance.Net;
 using System;
-using System.Collections.ObjectModel;
 using Binance.Net.Objects.Spot.MarketStream;
 using System.Windows.Threading;
 using System.Collections.Generic;
-using System.Linq;
+using System.Windows.Controls;
 
 namespace Tutorial.WPF.ViewModel
 {
+    public class NavigationViewModel: BaseViewModel
+    {
+        public List<UserControl> NavigationOptions { get; set; }
+        public UserControl SelectedItem { get; set; }
+
+    }
+
     public class ItemViewModel : BaseViewModel
     {
         readonly Guid _id;

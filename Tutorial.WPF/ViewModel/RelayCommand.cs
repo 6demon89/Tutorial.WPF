@@ -8,6 +8,7 @@ namespace Tutorial.WPF.ViewModel
         private Action<object> execute;
 
         private Predicate<object> canExecute;
+        private ICommand saveUserText;
 
         private event EventHandler CanExecuteChangedInternal;
 
@@ -30,6 +31,11 @@ namespace Tutorial.WPF.ViewModel
 
             this.execute = execute;
             this.canExecute = canExecute;
+        }
+
+        public RelayCommand(ICommand saveUserText)
+        {
+            this.saveUserText = saveUserText;
         }
 
         public event EventHandler CanExecuteChanged

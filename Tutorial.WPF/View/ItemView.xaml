@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Tutorial.WPF.View"
              xmlns:VM="clr-namespace:Tutorial.WPF.ViewModel"
-             xmlns:data="clr-namespace:Binance.Net.Objects.Spot.MarketStream;assembly=Binance.Net"
+             xmlns:data="clr-namespace:Binance.Net.Objects.Spot.MarketStream;assembly=Binance.Net" xmlns:behaviours="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
@@ -23,6 +23,7 @@
             </UniformGrid>
         </DataTemplate>
     </UserControl.Resources>
+    
     <Border Height="300" Width="300"  BorderBrush="Aquamarine" BorderThickness="2" CornerRadius="5">
         <Grid>
             <Grid.ColumnDefinitions>

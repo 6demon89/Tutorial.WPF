@@ -4,13 +4,15 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:bit="clr-namespace:Binance.Net.Objects.Spot.MarketStream;assembly=Binance.Net"
-        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
+        xmlns:behaviours="http://schemas.microsoft.com/xaml/behaviors" 
+        xmlns:converters="clr-namespace:Tutorial.WPF.Converters"
         mc:Ignorable="d"
-        Background="{StaticResource MainBackgroundColor}"
+        AllowsTransparency="True"
+        Background="{StaticResource ApplicationBackgroundColor}"
         WindowState="Normal"
         WindowStyle="None"
         ResizeMode="CanResize"
-        Width="800"
+        Width="800"        
         Height="600"
         Title="MainWindow">
     <WindowChrome.WindowChrome>
@@ -19,6 +21,18 @@
             CaptionHeight="0"
             ResizeBorderThickness="1" />
     </WindowChrome.WindowChrome>
+
+    <behaviours:Interaction.Triggers>
+        <behaviours:EventTrigger EventName="Loaded">
+            <behaviours:InvokeCommandAction 
+                Command="{Binding ViewLoadedCommand}"/>
+        </behaviours:EventTrigger>
+    </behaviours:Interaction.Triggers>
+
+    <Window.Resources>
+        <converters:NavigationConverter x:Key="nav"/>
+    </Window.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="35"/>
@@ -56,42 +70,24 @@
                         Style="{StaticResource WindowButtonStyleIconClose}"/>
                 </StackPanel>
                 <Border HorizontalAlignment="Stretch" DockPanel.Dock="Left"/>
-                <!--<View:NavigationView BorderThickness="0" DockPanel.Dock="Left" />-->
+
+
+                <ListView ItemsSource="{Binding NavigationOptions}">
+                    <DataTemplate>
+                    </DataTemplate>
+                </ListView>
+                
             </DockPanel>
         </Grid>
-
         <StackPanel Grid.Row="1" x:Name="LeftControlPanel" HorizontalAlignment="Stretch">
             <TextBlock Style="{StaticResource  DefaultHeaderTextBlockStyle}" Text="Enter searched Crypto Value"/>
-            <TextBox Style="{DynamicResource TextBoxStyle1}"
-                     x:Name="ValueToTrack"
-                     Text="{Binding NewCryptoName}">
-            </TextBox>
+            <ComboBox IsEditable="True" ItemsSource="{Binding KnownCurrecncies}"/>
             <Button Style="{StaticResource DefaultButtonStyle}"
+                    Command="{Binding AddCryptoCommand}"
                     Content="Track Selected"/>
+
+            <TextBox Text="{Binding UserText}" Style="{StaticResource TextBoxStyle1}"/>
+            <Button Content="Save" Command="{Binding SaveUserTextCommand}"/>
         </StackPanel>
-        <ListView
-            Grid.Row="1"
-            ItemsSource="{Binding Symbols}"
-            HorizontalContentAlignment="Stretch"
-            VerticalAlignment="Stretch"
-            Grid.Column="1">
-            <ListView.ItemTemplate>
-                <DataTemplate DataType="{x:Type bit:BinanceStreamBookPrice}">
-                    <UniformGrid Rows="1">
-                        <TextBlock Text="{Binding Symbol}"/>
-                        <TextBlock Text="{Binding UpdateId}"/>
-                        <TextBlock Text="{Binding BestBidPrice}"/>
-                        <TextBlock Text="{Binding BestBidQuantity}"/>
-                        <TextBlock Text="{Binding BestAskPrice}"/>
-                        <TextBlock Text="{Binding BestAskQuantity}"/>
-                    </UniformGrid>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-            <ListView.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <VirtualizingStackPanel VirtualizingPanel.IsVirtualizing="True"/>
-                </ItemsPanelTemplate>
-            </ListView.ItemsPanel>
-        </ListView>
     </Grid>
 </Window>
