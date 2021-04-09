@@ -26,7 +26,7 @@
 
             <SolidColorBrush x:Key="Button.Static.Background" Color="DimGray"/>
             <SolidColorBrush x:Key="Button.Static.Border" Color="DarkSlateBlue"/>
-            <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#0a1928"/>
+            <SolidColorBrush x:Key="ButtonBackground" Color="#0a1928"/>
             <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1"/>
             <SolidColorBrush x:Key="Button.Pressed.Background" Color="#FFC4E5F6"/>
             <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B"/>
@@ -37,7 +37,7 @@
             <!--Chrome Button Styles-->
             <command:CloseApplicationCommand x:Key="CloseCommand"/>
             <Style TargetType="{x:Type Button}" x:Key="WindowButtonStyleIconClose">
-                <Setter Property="Command" Value="{StaticResource CloseCommand}"/>
+                <Setter Property="Command" Value="{DynamicResource CloseCommand}"/>
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type Button}">
@@ -235,7 +235,7 @@
                                     <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
                                 </Trigger>
                                 <Trigger Property="IsMouseOver" Value="true">
-                                    <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
+                                    <Setter Property="Background" TargetName="border" Value="{StaticResource ButtonBackground}"/>
                                     <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
                                 </Trigger>
                                 <Trigger Property="IsPressed" Value="true">
@@ -303,10 +303,10 @@
                                     <Setter Property="Opacity" TargetName="border" Value="0.56"/>
                                 </Trigger>
                                 <Trigger Property="IsMouseOver" Value="true">
-                                    <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBox.MouseOver.Border}"/>
+                                    <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource Button.MouseOver.Border}"/>
                                 </Trigger>
                                 <Trigger Property="IsKeyboardFocused" Value="true">
-                                    <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBox.Focus.Border}"/>
+                                    <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource Button.MouseOver.Border}"/>
                                 </Trigger>
                                 <Trigger Property="IsKeyboardFocused" Value="False">
                                     <Setter Property="Background" Value="DimGray"/>
@@ -358,7 +358,7 @@
                                     <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
                                 </Trigger>
                                 <Trigger Property="IsMouseOver" Value="true">
-                                    <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
+                                    <Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonBackground}"/>
                                     <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
                                 </Trigger>
                                 <Trigger Property="IsPressed" Value="true">
@@ -406,7 +406,7 @@
                                     <Setter Property="BorderBrush" TargetName="border" Value="Transparent"/>
                                 </Trigger>
                                 <Trigger Property="IsKeyboardFocused" Value="true">
-                                    <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
+                                    <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource Button.MouseOver.Border}"/>
                                 </Trigger>
                                 <Trigger Property="IsKeyboardFocused" Value="False">
                                     <Setter Property="Background" Value="Snow"/>

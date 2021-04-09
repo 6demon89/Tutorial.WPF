@@ -81,6 +81,6 @@ namespace Tutorial.WPF.Converters
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
             => null;
-    {
+    
     }
 }

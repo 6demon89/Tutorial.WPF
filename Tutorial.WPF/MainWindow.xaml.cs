@@ -64,7 +64,6 @@ namespace Tutorial.WPF
             WindowState = WindowState.Minimized;
         }
 
-
         private void Grid_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             if (FirstClickChrome)
@@ -86,19 +85,33 @@ namespace Tutorial.WPF
         }
 
 
-        private bool mRestoreIfMove = false;
 
+        /// <summary>
+        /// After windows in initialized, we can get the windows handler pointer in order to manipulate it
+        /// </summary>
         void Window_SourceInitialized(object sender, EventArgs e)
         {
+            //We care getting the pointer of this window over hepler class in interop namespace
             IntPtr mWindowHandle = (new System.Windows.Interop.WindowInteropHelper(this)).Handle;
-            System.Windows.Interop.HwndSource.FromHwnd(mWindowHandle).AddHook(new System.Windows.Interop.HwndSourceHook(WindowProc));
+
+            //We are adding hook to this pointer, in order to extend/manipulate the behaviour
+            System.Windows.Interop.HwndSource.FromHwnd(mWindowHandle)
+                .AddHook(new System.Windows.Interop.HwndSourceHook(WindowProc));
         }
 
-
+        /// <summary>
+        /// Our hook will check the messaging system of the user32.dll to catch the request for window change event
+        /// we are returning Zero pointer, since we are processing this essage, 
+        /// in order to release windows to do that for us
+        /// </summary>
         private static System.IntPtr WindowProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
             switch (msg)
             {
+                //Sent to a window when the size or position of the window is about to change.
+                //An application can use this message to override the window's default maximized size and position,
+                //or its default minimum or maximum tracking size.
+                //https://docs.microsoft.com/en-us/windows/win32/winmsg/wm-getminmaxinfo
                 case 0x0024:
                     WmGetMinMaxInfo(hwnd, lParam);
                     break;
@@ -108,6 +121,11 @@ namespace Tutorial.WPF
         }
 
 
+        /// <summary>
+        /// Processing the window possition changes
+        /// </summary>
+        /// <param name="hwnd"></param>
+        /// <param name="lParam"></param>
         private static void WmGetMinMaxInfo(System.IntPtr hwnd, System.IntPtr lParam)
         {
             POINT lMousePosition;
@@ -115,15 +133,20 @@ namespace Tutorial.WPF
 
             IntPtr lPrimaryScreen = MonitorFromPoint(new POINT(0, 0), MonitorOptions.MONITOR_DEFAULTTOPRIMARY);
             MONITORINFO lPrimaryScreenInfo = new MONITORINFO();
+
+            // Checking pointers with recieved monitor information
             if (GetMonitorInfo(lPrimaryScreen, lPrimaryScreenInfo) == false)
             {
                 return;
             }
 
+            //Getting pointer of screen with the applicaiton window
             IntPtr lCurrentScreen = MonitorFromPoint(lMousePosition, MonitorOptions.MONITOR_DEFAULTTONEAREST);
 
+            //Getting minmax information from winuser.h
             MINMAXINFO lMmi = (MINMAXINFO)System.Runtime.InteropServices.Marshal.PtrToStructure(lParam, typeof(MINMAXINFO));
 
+            //changing applicaiton window screen information based on primaryscreen new position
             if (lPrimaryScreen.Equals(lCurrentScreen) == true)
             {
                 lMmi.ptMaxPosition.X = lPrimaryScreenInfo.rcWork.Left;
@@ -131,6 +154,7 @@ namespace Tutorial.WPF
                 lMmi.ptMaxSize.X = lPrimaryScreenInfo.rcWork.Right - lPrimaryScreenInfo.rcWork.Left;
                 lMmi.ptMaxSize.Y = lPrimaryScreenInfo.rcWork.Bottom - lPrimaryScreenInfo.rcWork.Top;
             }
+            //changing applicaiton window screen information based on nearest screen new position
             else
             {
                 lMmi.ptMaxPosition.X = lPrimaryScreenInfo.rcMonitor.Left;
@@ -138,93 +162,40 @@ namespace Tutorial.WPF
                 lMmi.ptMaxSize.X = lPrimaryScreenInfo.rcMonitor.Right - lPrimaryScreenInfo.rcMonitor.Left;
                 lMmi.ptMaxSize.Y = lPrimaryScreenInfo.rcMonitor.Bottom - lPrimaryScreenInfo.rcMonitor.Top;
             }
-
             System.Runtime.InteropServices.Marshal.StructureToPtr(lMmi, lParam, true);
         }
 
-
-        private void SwitchWindowState()
-        {
-            switch (WindowState)
-            {
-                case WindowState.Normal:
-                    {
-                        WindowState = WindowState.Maximized;
-                        break;
-                    }
-                case WindowState.Maximized:
-                    {
-                        WindowState = WindowState.Normal;
-                        break;
-                    }
-            }
-        }
-
-
-        private void rctHeader_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.ClickCount == 2)
-            {
-                if ((ResizeMode == ResizeMode.CanResize) || (ResizeMode == ResizeMode.CanResizeWithGrip))
-                {
-                    SwitchWindowState();
-                }
-
-                return;
-            }
-
-            else if (WindowState == WindowState.Maximized)
-            {
-                mRestoreIfMove = true;
-                return;
-            }
-
-            DragMove();
-        }
-
-
-        private void rctHeader_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            mRestoreIfMove = false;
-        }
-
-
-        private void rctHeader_PreviewMouseMove(object sender, MouseEventArgs e)
-        {
-            if (mRestoreIfMove)
-            {
-                mRestoreIfMove = false;
-
-                double percentHorizontal = e.GetPosition(this).X / ActualWidth;
-                double targetHorizontal = RestoreBounds.Width * percentHorizontal;
-
-                double percentVertical = e.GetPosition(this).Y / ActualHeight;
-                double targetVertical = RestoreBounds.Height * percentVertical;
-
-                WindowState = WindowState.Normal;
-
-                POINT lMousePosition;
-                GetCursorPos(out lMousePosition);
-
-                Left = lMousePosition.X - targetHorizontal;
-                Top = lMousePosition.Y - targetVertical;
-
-                DragMove();
-            }
-        }
-
+        /// <summary>
+        /// Get Point of the current mouse position 
+        /// </summary>
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         [return: System.Runtime.InteropServices.MarshalAs(System.Runtime.InteropServices.UnmanagedType.Bool)]
         static extern bool GetCursorPos(out POINT lpPoint);
 
 
+        /// <summary>
+        /// The MonitorFromPoint function retrieves a handle to the display monitor that contains a specified point.
+        /// https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-monitorfrompoint
+        /// </summary>
+        /// <returns>
+        /// If the point is contained by a display monitor, the return value is an HMONITOR handle to that display monitor.
+        /// If the point is not contained by a display monitor, the return value depends on the value of dwFlags.
+        /// </returns>
         [System.Runtime.InteropServices.DllImport("user32.dll", SetLastError = true)]
         static extern IntPtr MonitorFromPoint(POINT pt, MonitorOptions dwFlags);
 
+        /// <summary>
+        /// Monitor option Flags
+        /// </summary>
         enum MonitorOptions : uint
         {
+            //Returns NULL.
             MONITOR_DEFAULTTONULL = 0x00000000,
+
+            //Returns a handle to the primary display monitor.
             MONITOR_DEFAULTTOPRIMARY = 0x00000001,
+
+            //Returns a handle to the display monitor that is nearest to the point.
             MONITOR_DEFAULTTONEAREST = 0x00000002
         }
 
@@ -258,6 +229,11 @@ namespace Tutorial.WPF
         };
 
 
+        /// <summary>
+        /// The MONITORINFO structure contains information about a display monitor.
+        /// The GetMonitorInfo function stores information in a MONITORINFO structure or a MONITORINFOEX structure.
+        /// The MONITORINFO structure is a subset of the MONITORINFOEX structure.The MONITORINFOEX structure adds a string member to contain a name for the display monitor.
+        /// </summary>
         [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential, CharSet = System.Runtime.InteropServices.CharSet.Auto)]
         public class MONITORINFO
         {
