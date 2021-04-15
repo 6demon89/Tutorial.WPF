@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:bit="clr-namespace:Binance.Net.Objects.Spot.MarketStream;assembly=Binance.Net"
+        xmlns:controls="clr-namespace:Tutorial.WPF.Controls"
         xmlns:behaviours="http://schemas.microsoft.com/xaml/behaviors" 
         xmlns:converters="clr-namespace:Tutorial.WPF.Converters"
         mc:Ignorable="d"
@@ -32,11 +33,11 @@
     <Window.Resources>
         <converters:NavigationConverter x:Key="nav"/>
     </Window.Resources>
-    
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="35"/>
-            <RowDefinition/>
+            <RowDefinition Height="AUTO"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20*" MinWidth="210"/>
@@ -56,13 +57,13 @@
                                 Background="Transparent"
                                 Orientation="Horizontal">
                     <Button 
-                        Click="Button_Click_2"
+                        Click="Minimize_Windows_State_Click"
                         Foreground="White"
                         Style="{StaticResource WindowButtonStyleIconMinimize}">
                     </Button>
                     <Button 
                         x:Name="ChangeWindowsSizeBtn"
-                        Click="Button_Click"
+                        Click="Change_Windows_State_Click"
                         Foreground="White"
                         Style="{StaticResource WindowButtonStyleIconMaximize}"/>
                     <Button 
@@ -76,7 +77,7 @@
                     <DataTemplate>
                     </DataTemplate>
                 </ListView>
-                
+
             </DockPanel>
         </Grid>
         <StackPanel Grid.Row="1" x:Name="LeftControlPanel" HorizontalAlignment="Stretch">
@@ -88,6 +89,23 @@
 
             <TextBox Text="{Binding UserText}" Style="{StaticResource TextBoxStyle1}"/>
             <Button Content="Save" Command="{Binding SaveUserTextCommand}"/>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="2">
+            <Button Content="Add" Command="{Binding AddToTestCommand}"/>
+            <ItemsControl ItemsSource="{Binding TestCollection,Mode=OneWay}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border x:Name="border" HorizontalAlignment="Stretch" BorderBrush="GhostWhite" BorderThickness="1">
+                            <TextBlock x:Name="text" Text="{Binding}" Foreground="Wheat"/>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <controls:CustomCanvasControl/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
         </StackPanel>
     </Grid>
 </Window>

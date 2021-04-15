@@ -5,6 +5,10 @@ VisualStudioVersion = 16.0.31105.61
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tutorial.WPF", "Tutorial.WPF\Tutorial.WPF.csproj", "{718BA68C-332C-482C-A13C-BD0EA68A4173}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SerialPort", "SerialPort", "{D8F55EC6-D3EB-4394-8BF9-471813CBFC4A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wpf.COMPORT", "Wpf.COMPORT\Wpf.COMPORT.csproj", "{E341FF17-9E54-4329-98B8-FADE76AF8A3D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,9 +43,32 @@ Global
 		{718BA68C-332C-482C-A13C-BD0EA68A4173}.Release|x64.Build.0 = Release|Any CPU
 		{718BA68C-332C-482C-A13C-BD0EA68A4173}.Release|x86.ActiveCfg = Release|Any CPU
 		{718BA68C-332C-482C-A13C-BD0EA68A4173}.Release|x86.Build.0 = Release|Any CPU
+		{E341FF17-9E54-4329-98B8-FADE76AF8A3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E341FF17-9E54-4329-98B8-FADE76AF8A3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E341FF17-9E54-4329-98B8-FADE76AF8A3D}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{E341FF17-9E54-4329-98B8-FADE76AF8A3D}.Debug|ARM.Build.0 = Debug|Any CPU
+		{E341FF17-9E54-4329-98B8-FADE76AF8A3D}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{E341FF17-9E54-4329-98B8-FADE76AF8A3D}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{E341FF17-9E54-4329-98B8-FADE76AF8A3D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{E341FF17-9E54-4329-98B8-FADE76AF8A3D}.Debug|x64.Build.0 = Debug|Any CPU
+		{E341FF17-9E54-4329-98B8-FADE76AF8A3D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E341FF17-9E54-4329-98B8-FADE76AF8A3D}.Debug|x86.Build.0 = Debug|Any CPU
+		{E341FF17-9E54-4329-98B8-FADE76AF8A3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E341FF17-9E54-4329-98B8-FADE76AF8A3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E341FF17-9E54-4329-98B8-FADE76AF8A3D}.Release|ARM.ActiveCfg = Release|Any CPU
+		{E341FF17-9E54-4329-98B8-FADE76AF8A3D}.Release|ARM.Build.0 = Release|Any CPU
+		{E341FF17-9E54-4329-98B8-FADE76AF8A3D}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{E341FF17-9E54-4329-98B8-FADE76AF8A3D}.Release|ARM64.Build.0 = Release|Any CPU
+		{E341FF17-9E54-4329-98B8-FADE76AF8A3D}.Release|x64.ActiveCfg = Release|Any CPU
+		{E341FF17-9E54-4329-98B8-FADE76AF8A3D}.Release|x64.Build.0 = Release|Any CPU
+		{E341FF17-9E54-4329-98B8-FADE76AF8A3D}.Release|x86.ActiveCfg = Release|Any CPU
+		{E341FF17-9E54-4329-98B8-FADE76AF8A3D}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E341FF17-9E54-4329-98B8-FADE76AF8A3D} = {D8F55EC6-D3EB-4394-8BF9-471813CBFC4A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F08F3C18-234C-4E6A-A5FE-494166C1E19C}

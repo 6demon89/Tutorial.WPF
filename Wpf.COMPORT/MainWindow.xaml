@@ -1,0 +1,93 @@
+﻿<Window x:Class="Wpf.COMPORT.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Initialized="Window_Initialized"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <!-- Style for alternative colors in the data list. Because same color is boring-->
+        <Grid.Resources>
+            <Style TargetType="ListViewItem">
+                <Style.Triggers>
+                    <Trigger Property="ItemsControl.AlternationIndex"  Value="0">
+                        <Setter Property="Background" Value="Gray" />
+                    </Trigger>
+                    <Trigger Property="ItemsControl.AlternationIndex"  Value="1">
+                        <Setter Property="Background" Value="Black" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </Grid.Resources>
+        <Grid Margin="10,0,10,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <ComboBox 
+                SelectedItem="{Binding SelectedPort,Mode=TwoWay}"
+                ItemsSource="{Binding AvailablePorts,Mode=TwoWay}"/>
+            <Button Grid.Column="1" x:Name="ConntectBTN" Click="ConntectBTN_Click">
+                <Button.Style>
+                    <!--
+                    Button behavior mutation over trigger.
+                    If we have no ports available or no port is selected from combobox, 
+                    we disable the button, so that user can not press it
+                    -->
+                    <Style TargetType="Button">
+                        <Setter Property="IsEnabled" Value="True"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding AvailablePorts.Count}" Value="0">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding SelectedPort}" Value="">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding SelectedPort}" Value="{x:Null}">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <Button.Content>
+                    <TextBlock>
+                        <TextBlock.Style>
+                            <!--
+                            Button text mutation over trigger.
+                            if current SerialPort instance is null or it is not open => we are setting text to 'Connect'
+                            if current SerialPort instance is open => we are setting text to 'Disonnect'
+                            -->
+                            <Style TargetType="TextBlock">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding currentPort}" Value="{x:Null}">
+                                        <Setter Property="Text" Value="Connect"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding currentPort.IsOpen}" Value="True">
+                                        <Setter Property="Text" Value="Disconnect"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding currentPort.IsOpen}" Value="False">
+                                        <Setter Property="Text" Value="Connect"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </Button.Content>
+            </Button>
+            <Border Grid.Column="2">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+                    <TextBlock Text="Items in list : "/>
+                    <TextBlock Text="{Binding InputData.Count}"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+       
+        <ListView AlternationCount="2" Foreground="WhiteSmoke" ItemsSource="{Binding InputData}" Grid.Row="1"></ListView>
+    </Grid>
+</Window>

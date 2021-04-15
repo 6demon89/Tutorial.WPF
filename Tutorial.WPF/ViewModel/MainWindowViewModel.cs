@@ -16,13 +16,19 @@ namespace Tutorial.WPF.ViewModel
         public ObservableCollection<string> KnownCurrecncies { get; set; } = new ObservableCollection<string>();
         public ObservableCollection<UserControl> CryptoFollow { get; set; } = new ObservableCollection<UserControl>();
 
+        public ObservableCollection<string> TestCollection { get; set; } = new ObservableCollection<string>();
+
         public string UserText { get; set; }
         public ICommand SaveUserTextCommand { get; set; }
 
+        public ICommand AddToTestCommand { get; set; }
         public MainWindowViewModel()
         {
             ViewLoadedCommand = new RelayCommand(AddNewCrypto);
             SaveUserTextCommand = new RelayCommand(SaveUserText);
+            AddToTestCommand = new RelayCommand((o) => { 
+                TestCollection.Add(new Random().Next().ToString());
+            });
         }
 
         private async void SaveUserText(object obj)

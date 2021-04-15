@@ -42,28 +42,29 @@ namespace Tutorial.WPF
         }
 
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Change_Windows_State_Click(object sender, RoutedEventArgs e)
         {
             bool StateMaximized = WindowState == WindowState.Maximized;
             WindowState = StateMaximized ? WindowState.Normal : WindowState.Maximized;
         }
 
+        /// <summary>
+        /// Draging window over left mouse button
+        /// </summary>
         private void NavigationBar_MouseDown_1(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
                 Application.Current.MainWindow.DragMove();
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            Application.Current.Shutdown();
-        }
-
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        private void Minimize_Windows_State_Click(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState.Minimized;
         }
 
+        /// <summary>
+        /// checking double click to change the windows state
+        /// </summary>
         private void Grid_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             if (FirstClickChrome)
@@ -101,7 +102,7 @@ namespace Tutorial.WPF
 
         /// <summary>
         /// Our hook will check the messaging system of the user32.dll to catch the request for window change event
-        /// we are returning Zero pointer, since we are processing this essage, 
+        /// we are returning Zero pointer, since we are processing this message, 
         /// in order to release windows to do that for us
         /// </summary>
         private static System.IntPtr WindowProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
@@ -204,31 +205,6 @@ namespace Tutorial.WPF
         static extern bool GetMonitorInfo(IntPtr hMonitor, MONITORINFO lpmi);
 
 
-        [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
-        public struct POINT
-        {
-            public int X;
-            public int Y;
-
-            public POINT(int x, int y)
-            {
-                this.X = x;
-                this.Y = y;
-            }
-        }
-
-
-        [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
-        public struct MINMAXINFO
-        {
-            public POINT ptReserved;
-            public POINT ptMaxSize;
-            public POINT ptMaxPosition;
-            public POINT ptMinTrackSize;
-            public POINT ptMaxTrackSize;
-        };
-
-
         /// <summary>
         /// The MONITORINFO structure contains information about a display monitor.
         /// The GetMonitorInfo function stores information in a MONITORINFO structure or a MONITORINFOEX structure.
@@ -243,6 +219,28 @@ namespace Tutorial.WPF
             public int dwFlags = 0;
         }
 
+        [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
+        public struct POINT
+        {
+            public int X;
+            public int Y;
+
+            public POINT(int x, int y)
+            {
+                this.X = x;
+                this.Y = y;
+            }
+        }
+
+        [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
+        public struct MINMAXINFO
+        {
+            public POINT ptReserved;
+            public POINT ptMaxSize;
+            public POINT ptMaxPosition;
+            public POINT ptMinTrackSize;
+            public POINT ptMaxTrackSize;
+        };
 
         [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
         public struct RECT
