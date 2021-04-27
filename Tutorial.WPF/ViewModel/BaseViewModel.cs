@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel;
+using System.Windows;
 using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace Tutorial.WPF.ViewModel
 {
@@ -34,7 +36,8 @@ namespace Tutorial.WPF.ViewModel
         public event PropertyChangedEventHandler PropertyChanged;
         public void NotifyChanges(string propertyname)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(propertyname)));
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyname));
         }
 
     }

@@ -23,9 +23,9 @@ namespace Tutorial.WPF.Service
             try
             {
                 var raw = JsonConvert.SerializeObject(model);
-                using (StreamWriter outputFile = new StreamWriter(Path.Join(_pathToFile, $"Tutorial_WPF.txt"), true))
+                using (StreamWriter outputFile = new StreamWriter(Path.Join(_pathToFile, $"Tutorial_WPF.txt"), false))
                 {
-                    await outputFile.WriteLineAsync(raw);
+                    await outputFile.WriteAsync(raw);
                 }
             }
             catch (Exception e)

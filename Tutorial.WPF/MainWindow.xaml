@@ -7,13 +7,16 @@
         xmlns:controls="clr-namespace:Tutorial.WPF.Controls"
         xmlns:behaviours="http://schemas.microsoft.com/xaml/behaviors" 
         xmlns:converters="clr-namespace:Tutorial.WPF.Converters"
+        
+        xmlns:ice="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
+        xmlns:vm="clr-namespace:Tutorial.WPF.ViewModel"
         mc:Ignorable="d"
         AllowsTransparency="True"
         Background="{StaticResource ApplicationBackgroundColor}"
         WindowState="Normal"
         WindowStyle="None"
         ResizeMode="CanResize"
-        Width="800"        
+        Width="900"        
         Height="600"
         Title="MainWindow">
     <WindowChrome.WindowChrome>
@@ -32,12 +35,14 @@
 
     <Window.Resources>
         <converters:NavigationConverter x:Key="nav"/>
+        <converters:ScaleFactorConverter x:Key="Scale"/>
     </Window.Resources>
+
 
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="35"/>
-            <RowDefinition Height="AUTO"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20*" MinWidth="210"/>
@@ -82,27 +87,23 @@
         </Grid>
         <StackPanel Grid.Row="1" x:Name="LeftControlPanel" HorizontalAlignment="Stretch">
             <TextBlock Style="{StaticResource  DefaultHeaderTextBlockStyle}" Text="Enter searched Crypto Value"/>
-            <ComboBox IsEditable="True" ItemsSource="{Binding KnownCurrecncies}"/>
+            <ComboBox IsEditable="True" 
+                      SelectedItem="{Binding UserText}"
+                      ItemsSource="{Binding KnownCurrecncies}"/>
             <Button Style="{StaticResource DefaultButtonStyle}"
-                    Command="{Binding AddCryptoCommand}"
+                    Command="{Binding AddToTestCommand}"
                     Content="Track Selected"/>
-
-            <TextBox Text="{Binding UserText}" Style="{StaticResource TextBoxStyle1}"/>
             <Button Content="Save" Command="{Binding SaveUserTextCommand}"/>
         </StackPanel>
-        <StackPanel Grid.Row="1" Grid.Column="2">
+        <StackPanel x:Name="Stack" Grid.Row="1" Grid.Column="2">
             <Button Content="Add" Command="{Binding AddToTestCommand}"/>
-            <ItemsControl ItemsSource="{Binding TestCollection,Mode=OneWay}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Border x:Name="border" HorizontalAlignment="Stretch" BorderBrush="GhostWhite" BorderThickness="1">
-                            <TextBlock x:Name="text" Text="{Binding}" Foreground="Wheat"/>
-                        </Border>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
+            <ItemsControl 
+                VerticalAlignment="Bottom"
+                VerticalContentAlignment="Bottom"
+                ItemsSource="{Binding CryptoFollow,Mode=OneWay}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <controls:CustomCanvasControl/>
+                        <UniformGrid Columns="2"/>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
             </ItemsControl>

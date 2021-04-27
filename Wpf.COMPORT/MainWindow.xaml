@@ -88,6 +88,7 @@
             </Border>
         </Grid>
        
-        <ListView AlternationCount="2" Foreground="WhiteSmoke" ItemsSource="{Binding InputData}" Grid.Row="1"></ListView>
+        <ListView AlternationCount="2" Foreground="WhiteSmoke"
+                  ItemsSource="{Binding InputData}" Grid.Row="1"></ListView>
     </Grid>
 </Window>

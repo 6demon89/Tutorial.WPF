@@ -4,6 +4,8 @@ using Binance.Net.Objects.Spot.MarketStream;
 using System.Windows.Threading;
 using System.Collections.Generic;
 using System.Windows.Controls;
+using System.Windows.Media;
+using System.Collections.ObjectModel;
 
 namespace Tutorial.WPF.ViewModel
 {
@@ -23,7 +25,7 @@ namespace Tutorial.WPF.ViewModel
 
         public string CrypoName { get => _crypoName; }
 
-        public List<BinanceStreamBookPrice> Data { get; set; } = new List<BinanceStreamBookPrice>();
+        public ObservableCollection<BinanceStreamBookPrice> Data { get; set; } = new ObservableCollection<BinanceStreamBookPrice>();
 
         public ItemViewModel(string cryptoname)
         {

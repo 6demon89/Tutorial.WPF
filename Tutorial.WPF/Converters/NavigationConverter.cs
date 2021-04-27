@@ -81,6 +81,38 @@ namespace Tutorial.WPF.Converters
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
             => null;
-    
+
+    }
+
+    public class ScaleFactorConverter : MarkupExtension, IValueConverter
+    {
+        private static ScaleFactorConverter _converter = null;
+
+        public override object ProvideValue(IServiceProvider serviceProvider)
+        {
+            if (_converter is null)
+            {
+                _converter = new ScaleFactorConverter();
+            }
+            return _converter;
+        }
+
+        private decimal maxValue = 0;
+
+
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (decimal.TryParse(value.ToString(), out decimal newVal))
+            {
+                if (maxValue < newVal)
+                    maxValue = newVal;
+                return newVal/maxValue;
+            }
+            return null;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+            => null;
+
     }
 }
