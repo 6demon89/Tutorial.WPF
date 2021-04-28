@@ -30,9 +30,9 @@ namespace Tutorial.WPF.Controls
         }
         private void Canvas_MouseWheel(object sender, MouseWheelEventArgs e)
         {
-            zoom += zoomSpeed * e.Delta; 
-            if (zoom < zoomMin) { zoom = zoomMin; } 
-            if (zoom > zoomMax) { zoom = zoomMax; } 
+            zoom += zoomSpeed * e.Delta;
+            if (zoom < zoomMin) { zoom = zoomMin; }
+            if (zoom > zoomMax) { zoom = zoomMax; }
             this.RenderTransform = new ScaleTransform(zoom, 1);
         }
 

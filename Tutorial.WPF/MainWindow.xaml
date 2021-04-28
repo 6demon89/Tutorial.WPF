@@ -88,6 +88,7 @@
         <StackPanel Grid.Row="1" x:Name="LeftControlPanel" HorizontalAlignment="Stretch">
             <TextBlock Style="{StaticResource  DefaultHeaderTextBlockStyle}" Text="Enter searched Crypto Value"/>
             <ComboBox IsEditable="True" 
+                      KeyDown="ComboBox_KeyDown"
                       SelectedItem="{Binding UserText}"
                       ItemsSource="{Binding KnownCurrecncies}"/>
             <Button Style="{StaticResource DefaultButtonStyle}"
@@ -100,10 +101,26 @@
             <ItemsControl 
                 VerticalAlignment="Bottom"
                 VerticalContentAlignment="Bottom"
-                ItemsSource="{Binding CryptoFollow,Mode=OneWay}">
+                ItemsSource="{Binding TestCollection,Mode=OneWay}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid x:Name="g">
+                            <Rectangle 
+                                Tag="Scalable"
+                                Fill="Orange"
+                                Height="{Binding ElementName=g,Path=ActualHeight}">
+                                <Rectangle.RenderTransform>
+                                    <ScaleTransform ScaleY="{Binding ScaleFactor}" CenterY="{Binding ElementName=g,Path=ActualHeight}"/>
+                                </Rectangle.RenderTransform>   
+                            </Rectangle>
+                            <TextBlock Text="{Binding Value}"/>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <UniformGrid Columns="2"/>
+                        <controls:CustomCanvasControl/>
+                        <!--<UniformGrid Columns="2"/>-->
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
             </ItemsControl>

@@ -70,6 +70,8 @@ namespace Tutorial.WPF.ViewModel
             SaveUserTextCommand = new RelayCommand(SaveUserText);
             AddToTestCommand = new RelayCommand((o) =>
             {
+                TestCollection.Add(new UpdatebleItem(rnd));
+
                 if (!string.IsNullOrEmpty(UserText))
                     CryptoFollow.Add(new ItemView(UserText));
             });

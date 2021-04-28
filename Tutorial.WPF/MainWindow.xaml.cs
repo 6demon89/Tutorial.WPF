@@ -255,5 +255,13 @@ namespace Tutorial.WPF
                 this.Bottom = bottom;
             }
         }
+
+        private void ComboBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Return)
+                MessageBox.Show("Return pressed");
+            if (e.Key == Key.Enter)
+                MessageBox.Show("Enter pressed");
+        }
     }
 }

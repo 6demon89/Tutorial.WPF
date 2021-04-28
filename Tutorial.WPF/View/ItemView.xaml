@@ -65,7 +65,8 @@
                 Grid.ColumnSpan="2">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <VirtualizingStackPanel Orientation="Horizontal"/>
+                        <control:CustomCanvasControl/>
+                        <!--<VirtualizingStackPanel Orientation="Horizontal"/>-->
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>

@@ -13,7 +13,6 @@ namespace Tutorial.WPF.ViewModel
     {
         public List<UserControl> NavigationOptions { get; set; }
         public UserControl SelectedItem { get; set; }
-
     }
 
     public class ItemViewModel : BaseViewModel
