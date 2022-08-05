@@ -1,0 +1,47 @@
+trigger:
+- master
+
+pool:
+  vmImage: 'windows-2022'
+
+variables:
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+
+steps:
+- task: NuGetToolInstaller@1
+
+- task: NuGetCommand@2
+  inputs:
+    restoreSolution: '$(solution)'
+
+- task: VSBuild@1
+  inputs:
+    solution: '$(solution)'
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
+
+- task: VSTest@2
+  inputs:
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'  
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'publish'
+    publishWebProjects: false
+    zipAfterPublish: false
+    projects: '**/Wpf.COMPORT/Wpf.COMPORT.csproj'
+    arguments: '-c Release -r win-x64 --self-contained true -p:PublishSingleFile=true --output "Wpf.COMPORT\publish\"'
+
+- task: AdvancedInstaller@2
+  inputs:
+    aipPath: 'WPF ComPort Setup/WPF ComPort Setup.aip'
+    aipOutputFolder: '$(Build.ArtifactStagingDirectory)'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
