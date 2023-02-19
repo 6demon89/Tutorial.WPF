@@ -1,0 +1,22 @@
+﻿<Application x:Class="MvvmBasics.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:MvvmBasics"
+             xmlns:VM="clr-namespace:MvvmBasics.ViewModel"
+             xmlns:View="clr-namespace:MvvmBasics.View">
+    <Application.Resources>
+        <DataTemplate DataType="{x:Type VM:EvenetsToCommandViewModel}">
+            <View:EventToCommandView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type VM:GreetingViewModel}">
+            <View:GreetingView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type VM:LogInViewModel}">
+            <View:LoginView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type VM:NavigationViewModel}">
+            <View:NavigationView/>
+        </DataTemplate>
+        <!-- We can also do the same assignment/binding between MainWindow and MainWindowViewModel, but we will use different approach-->
+    </Application.Resources>
+</Application>

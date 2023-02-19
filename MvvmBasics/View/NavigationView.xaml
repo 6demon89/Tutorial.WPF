@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="MvvmBasics.View.NavigationView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <ListView ItemsSource="{Binding NavigationOptions}" SelectionMode="Single">
+        <Behaviors:Interaction.Triggers>
+            <Behaviors:EventTrigger EventName="SelectionChanged">
+                <Behaviors:InvokeCommandAction Command="{Binding SelectionChangedCommand}" PassEventArgsToCommand="True"/>
+            </Behaviors:EventTrigger>
+        </Behaviors:Interaction.Triggers>
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <Border BorderBrush="DarkBlue" Padding="5" Width="135" BorderThickness="1">
+                    <Border.ToolTip>
+                        <ToolTip Content="{Binding Description}">
+                            <ToolTip.ContentTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding}"/>
+                                </DataTemplate>
+                            </ToolTip.ContentTemplate>
+                        </ToolTip>
+                    </Border.ToolTip>
+                    <TextBlock Text="{Binding Name}"/>
+                </Border>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
+</UserControl>
