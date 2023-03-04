@@ -5,10 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MvvmBasics.Model
+namespace MvvmBasics.Model;
+
+public class UserModel
 {
-    public class UserModel
-    {
-        public string? Name { get; set; }
-    }
+    public string? Name { get; set; }
 }

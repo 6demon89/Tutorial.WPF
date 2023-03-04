@@ -39,6 +39,8 @@ namespace Tutorial.WPF
             SourceInitialized += Window_SourceInitialized;
             this.Loaded += (s, e) => this.Activate();
             DataContext = new ViewModel.MainWindowViewModel();
+
+
         }
 
 

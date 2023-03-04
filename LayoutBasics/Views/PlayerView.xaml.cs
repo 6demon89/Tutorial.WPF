@@ -13,16 +13,15 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace LayoutBasics.Views
+namespace LayoutBasics.Views;
+
+/// <summary>
+/// Interaction logic for PlayerView.xaml
+/// </summary>
+public partial class PlayerView : UserControl
 {
-    /// <summary>
-    /// Interaction logic for PlayerView.xaml
-    /// </summary>
-    public partial class PlayerView : UserControl
+    public PlayerView()
     {
-        public PlayerView()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

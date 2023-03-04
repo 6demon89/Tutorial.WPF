@@ -13,16 +13,15 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MvvmBasics.View
+namespace MvvmBasics.View;
+
+/// <summary>
+/// Interaction logic for NavigationView.xaml
+/// </summary>
+public partial class NavigationView : UserControl
 {
-    /// <summary>
-    /// Interaction logic for NavigationView.xaml
-    /// </summary>
-    public partial class NavigationView : UserControl
+    public NavigationView()
     {
-        public NavigationView()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

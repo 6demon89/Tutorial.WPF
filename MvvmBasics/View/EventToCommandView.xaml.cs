@@ -13,16 +13,15 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MvvmBasics.View
+namespace MvvmBasics.View;
+
+/// <summary>
+/// Interaction logic for EventToCommandView.xaml
+/// </summary>
+public partial class EventToCommandView : UserControl
 {
-    /// <summary>
-    /// Interaction logic for EventToCommandView.xaml
-    /// </summary>
-    public partial class EventToCommandView : UserControl
+    public EventToCommandView()
     {
-        public EventToCommandView()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

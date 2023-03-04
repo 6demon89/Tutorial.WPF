@@ -13,16 +13,15 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MvvmBasics.View
+namespace MvvmBasics.View;
+
+/// <summary>
+/// Interaction logic for GreetingView.xaml
+/// </summary>
+public partial class GreetingView : UserControl
 {
-    /// <summary>
-    /// Interaction logic for GreetingView.xaml
-    /// </summary>
-    public partial class GreetingView : UserControl
+    public GreetingView()
     {
-        public GreetingView()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

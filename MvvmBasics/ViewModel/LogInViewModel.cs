@@ -5,10 +5,10 @@ using MvvmBasics.Model;
 using System.Windows.Data;
 using System.Windows.Input;
 
-namespace MvvmBasics.ViewModel
+namespace MvvmBasics.ViewModel;
+
+public class LogInViewModel : ObservableObject
 {
-    public class LogInViewModel : ObservableObject
-    {
 		private string? userName;
 
 		public string? UserName
@@ -30,4 +30,3 @@ namespace MvvmBasics.ViewModel
 		
 		}
 	}
-}

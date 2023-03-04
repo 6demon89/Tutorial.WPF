@@ -86,6 +86,9 @@
             </DockPanel>
         </Grid>
         <StackPanel Grid.Row="1" x:Name="LeftControlPanel" HorizontalAlignment="Stretch">
+            <TextBlock x:Name="sample"/>
+
+
             <TextBlock Style="{StaticResource  DefaultHeaderTextBlockStyle}" Text="Enter searched Crypto Value"/>
             <ComboBox IsEditable="True" 
                       KeyDown="ComboBox_KeyDown"

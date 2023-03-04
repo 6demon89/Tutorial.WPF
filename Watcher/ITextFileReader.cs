@@ -1,13 +1,12 @@
 ﻿using System.Threading.Tasks;
 
-namespace Watcher
-{
-    public interface ITextFileReader
-    {
+namespace Watcher;
 
-        /// <summary>
-        /// Reading file completly and returning data as a string
-        /// </summary>
-        Task<string> ReadFileAsync();
-    }
+public interface ITextFileReader
+{
+
+    /// <summary>
+    /// Reading file completly and returning data as a string
+    /// </summary>
+    Task<string> ReadFileAsync();
 }

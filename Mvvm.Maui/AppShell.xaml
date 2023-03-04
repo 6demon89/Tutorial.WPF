@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    Title="How to lose all you money"
+    FlyoutBackgroundColor="Black"
+    x:Class="Mvvm.Maui.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:view="clr-namespace:Mvvm.Maui.Views">
+
+    <ShellContent 
+        Title="{Binding Source={RelativeSource Self},Path=Route}"
+        ContentTemplate="{DataTemplate view:OverviewPage}"
+        Route="Overview" />
+    <ShellContent 
+        Title="{Binding Source={RelativeSource Self},Path=Route}"
+        ContentTemplate="{DataTemplate view:StatisticPage}"
+        Route="All Transactions" 
+        />
+    <ShellContent 
+        Title="{Binding Source={RelativeSource Self},Path=Route}"
+        ContentTemplate="{DataTemplate view:FinanceDetailsPage}"
+        Route="Add Transaction" 
+        />
+
+</Shell>

@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Mvvm.Maui.Views.OverviewPage"
+             xmlns:VM="clr-namespace:Mvvm.Maui.ViewModels"
+             xmlns:Model="clr-namespace:Mvvm.Maui.Models"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.Maui;assembly=LiveChartsCore.SkiaSharpView.Maui"
+             xmlns:windows="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.WindowsSpecific;assembly=Microsoft.Maui.Controls"
+             x:DataType="VM:OverviewViewModel">
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior
+            EventName="Appearing"
+            Command="{Binding UILoadedCommand}"/>
+    </ContentPage.Behaviors>
+    <RefreshView 
+        windows:RefreshView.RefreshPullDirection="TopToBottom"
+        IsRefreshing="{Binding IsRefreshing}"
+             Command="{Binding RefreshCommand}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="4*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <HorizontalStackLayout HorizontalOptions="Center">
+                <Label Text="Current Balance: "/>
+                <Label Text="{Binding Balance,StringFormat='${0}'}"/>
+            </HorizontalStackLayout>
+            <lvc:PieChart Grid.Row="1" Series="{Binding Series}"/>
+
+            <CollectionView 
+            Grid.Row="2"
+                Margin="20"
+            ItemsSource="{Binding Data}" 
+            SelectionMode="Single">
+                <CollectionView.Behaviors>
+                    <toolkit:EventToCommandBehavior
+                    EventName="SelectionChanged" 
+                    x:TypeArguments="SelectionChangedEventArgs"
+                    Command="{Binding ItemSelectionCommand}"/>
+                </CollectionView.Behaviors>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="5" x:DataType="Model:Finance">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Label Text="{Binding TimeStamp}" />
+                            <Label Text="{Binding Amount,StringFormat='{C}$'}" Grid.Column="1"/>
+                            <Label Text="{Binding Name}" Grid.Column="2"/>
+                            <Label Text="{Binding Description}" Grid.Column="3"/>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+    </RefreshView>
+</ContentPage>

@@ -8,30 +8,29 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace MvvmBasics.ViewModel
+namespace MvvmBasics.ViewModel;
+
+public class MainWindowViewModel: ObservableObject
 {
-    public class MainWindowViewModel: ObservableObject
+    public ObservableObject? NavigationVM { get; set; }
+
+    private ObservableObject? currentVM;
+
+    public ObservableObject? CurrentVM
     {
-        public ObservableObject? NavigationVM { get; set; }
+        get => currentVM; 
+        set => SetProperty(ref currentVM ,value);
+    }
 
-        private ObservableObject? currentVM;
+    public MainWindowViewModel(NavigationViewModel navVM)
+    {
+        NavigationVM = navVM;
+        WeakReferenceMessenger.Default.Register<NavigationChangedRequestedMessage>(this, NavigateTo);
+    }
 
-        public ObservableObject? CurrentVM
-        {
-            get => currentVM; 
-            set => SetProperty(ref currentVM ,value);
-        }
-
-        public MainWindowViewModel(NavigationViewModel navVM)
-        {
-            NavigationVM = navVM;
-            WeakReferenceMessenger.Default.Register<NavigationChangedRequestedMessage>(this, NavigateTo);
-        }
-
-        private void NavigateTo(object recipient, NavigationChangedRequestedMessage message)
-        {
-            if (message.Value is NavigationModel navModel)
-                CurrentVM = navModel.DestinationVM;
-        }
+    private void NavigateTo(object recipient, NavigationChangedRequestedMessage message)
+    {
+        if (message.Value is NavigationModel navModel)
+            CurrentVM = navModel.DestinationVM;
     }
 }

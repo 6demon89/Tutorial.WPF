@@ -1,8 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.Messaging.Messages;
 
-namespace MvvmBasics.Model
+namespace MvvmBasics.Model;
+
+public class LoggedInUserRequestMessage: RequestMessage<UserModel>
 {
-    public class LoggedInUserRequestMessage: RequestMessage<UserModel>
-    {
-    }
 }

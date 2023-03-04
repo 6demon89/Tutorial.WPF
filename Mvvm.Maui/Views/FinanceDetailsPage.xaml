@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Mvvm.Maui.Views.FinanceDetailsPage"
+             xmlns:Model="clr-namespace:Mvvm.Maui.Models"             
+             xmlns:Converters="clr-namespace:Mvvm.Maui.Converter"             
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Converters:IsGuidNotEmptyConverter x:Key="IsGuidNotEmpty" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior
+            EventName="Appearing"
+            Command="{Binding UILoadedCommand}"/>
+    </ContentPage.Behaviors>
+    <ScrollView>
+        <toolkit:DockLayout ShouldExpandLastChild="False">
+            <VerticalStackLayout toolkit:DockLayout.DockPosition="Top" Padding="0,30,10,30">
+                <VerticalStackLayout.Resources>
+                    <ResourceDictionary>
+                        <Style TargetType="{x:Type Label}">
+                            <Setter Property="FontSize" Value="18"/>
+                            <Setter Property="Margin" Value="0,10,0,0"/>
+                            <Setter Property="VerticalOptions" Value="Center"/>
+                            <Setter Property="HorizontalOptions" Value="Center"/>
+                        </Style>
+                        <Style TargetType="{x:Type Entry}">
+                            <Setter Property="FontSize" Value="18"/>
+                            <Setter Property="Margin" Value="0,10,0,0"/>
+                            <Setter Property="VerticalOptions" Value="Center"/>
+                            <Setter Property="HorizontalTextAlignment" Value="Center"/>
+                        </Style>
+                    </ResourceDictionary>
+                </VerticalStackLayout.Resources>
+                <Label Text="Transaction ID" />
+                <Label Text="{Binding FinanceDetail.id}"/>
+                <Label Text="Transaction Name" />
+                <Entry Text="{Binding FinanceDetail.Name}" />
+                <Label Text="Transaction Description" />
+                <Entry Text="{Binding FinanceDetail.Description}" />
+                <Label Text="Transaction Amount" />
+                <Entry Text="{Binding AmounString }" />
+                <Label Text="Transaction Date" />
+                <DatePicker Date="{Binding FinanceDetail.TimeStamp}" HorizontalOptions="Center" FontSize="18"/>
+            </VerticalStackLayout>
+            <Button toolkit:DockLayout.DockPosition="Bottom" Text="Delete" Command="{Binding DeleteCommand}"
+                BackgroundColor="DarkRed" TextColor="Black"
+                IsVisible="{Binding ID,Mode=OneWay, Converter={StaticResource IsGuidNotEmpty}}"/>
+            <Button toolkit:DockLayout.DockPosition="Bottom" Text="Cancel" Command="{Binding CancelCommand}"
+                     IsVisible="{Binding ID,Mode=OneWay, Converter={StaticResource IsGuidNotEmpty}}"/>
+            <Button toolkit:DockLayout.DockPosition="Bottom" Text="Save changes" Margin="0,50,0,0" Command="{Binding SaveCommand}"/>
+        </toolkit:DockLayout>
+    </ScrollView>
+</ContentPage>

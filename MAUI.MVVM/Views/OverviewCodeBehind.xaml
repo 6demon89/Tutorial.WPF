@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.Maui;assembly=LiveChartsCore.SkiaSharpView.Maui"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="MAUI.MVVM.Views.OverviewCodeBehind"
+             Loaded="ContentPage_Loaded"
+             Title="Overview CodeBehind">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <HorizontalStackLayout HorizontalOptions="Center">
+            <Label FontSize="18" Text="Current Balance:"/>
+            <Label FontSize="18" x:Name="CurenctBalanceLabel"/>
+        </HorizontalStackLayout>
+
+        <lvc:PieChart Grid.Row="1" x:Name="pieChart"/>
+        <CollectionView Grid.Row="2" Grid.ColumnSpan="2" x:Name="DataCollectionView"  SelectionMode="Single">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Padding="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Label FontSize="18" Text="{Binding Amount,StringFormat='{C}'}"/>
+                        <Label Grid.Column="1" FontSize="18" Text="{Binding TimeStamp}"/>
+                        <Label Grid.Column="2" FontSize="18" Text="{Binding Name}"/>
+                        <Label Grid.Column="3" FontSize="18" Text="{Binding Description}"/>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <VerticalStackLayout Grid.Column="1" Grid.RowSpan="3">
+            <VerticalStackLayout.Resources>
+                <ResourceDictionary>
+                    <Style TargetType="Label">
+                        <Setter Property="Margin" Value="8"/>
+                        <Setter Property="FontSize" Value="18"/>
+                    </Style>
+                </ResourceDictionary>
+            </VerticalStackLayout.Resources>
+            <Border StrokeThickness="1">
+                <Label FontSize="22" HorizontalOptions="Center" Text="Add Expense"/>
+            </Border>
+            <Label Text="Expenses Name"/>
+            <Entry x:Name="ExpenseNameEntry"/>
+            <Label Text="Expenses Description"/>
+            <Entry x:Name="ExpensesDescriptionEntry"/>
+            <Label Text="Amount"/>
+            <Entry x:Name="ExpensesAmountEntry" Keyboard="Numeric"/>
+            <Button Text="Commit" Clicked="Button_Clicked" />
+        </VerticalStackLayout>
+    </Grid>
+
+</ContentPage>
