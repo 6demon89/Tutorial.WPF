@@ -3,6 +3,8 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using MvvmBasics.Model;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -29,11 +31,22 @@ public class NavigationViewModel : ObservableObject
 
     public NavigationViewModel(
         LogInViewModel loginView,
+        ProjectsViewModel projectView,
         EvenetsToCommandViewModel evenetsToCommandViewModel)
     {
+        projectView.OnProjectSelectionChanged += ProjectView_OnProjectSelectionChanged;
+        
         NavigationOptions.Add(new() { Name = "Login", Description = "User can login with this page. the demo shows how to request data from other ViewModels", DestinationVM = loginView });
         NavigationOptions.Add(new() { Name = "Events", Description = "This shows how to redirect event into commands", DestinationVM = evenetsToCommandViewModel });
+        NavigationOptions.Add(new() { Name = "Project", Description = "This shows how to redirect event into commands", DestinationVM = projectView });
+        
         var message = new NavigationChangedRequestedMessage(NavigationOptions[0]);
         WeakReferenceMessenger.Default.Send(message);
+    }
+
+    private async void ProjectView_OnProjectSelectionChanged(TempProject obj)
+    {
+        await Task.Delay(20000);
+        MessageBox.Show($"{obj.id}");
     }
 }

@@ -43,6 +43,7 @@ public partial class App : Application
         services.AddSingleton<EvenetsToCommandViewModel>();
         services.AddSingleton<LogInViewModel>();
         services.AddSingleton<NavigationViewModel>();
+        services.AddSingleton<ProjectsViewModel>();
         services.AddSingleton<GreetingViewModel>();
         services.AddScoped<GenerateDataService>();
         Container = services.BuildServiceProvider();

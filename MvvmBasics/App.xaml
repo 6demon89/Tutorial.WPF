@@ -17,6 +17,9 @@
         <DataTemplate DataType="{x:Type VM:NavigationViewModel}">
             <View:NavigationView/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type VM:ProjectsViewModel}">
+            <View:ProjectsView/>
+        </DataTemplate>
         <!-- We can also do the same assignment/binding between MainWindow and MainWindowViewModel, but we will use different approach-->
     </Application.Resources>
 </Application>
